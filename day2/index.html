@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>title</title>
+    </head>
+    <body>
+        <form id='form'>
+            Message2: <input type='text' id='m'>
+        </form>
+    </body>
+</html>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  $(function () {
+    var socket = io('http://localhost:3000');
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+  });
+</script>
