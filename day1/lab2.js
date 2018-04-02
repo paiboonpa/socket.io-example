@@ -130,9 +130,21 @@ promiseAll([5,6,7]);
 const util = require('util');
 
 const readFileAsync = util.promisify(fs.readFile);
+function wait99(callback) {
+  setTimeout(function(){
+    callback(null,{a:1,b:2});
+  },1000);
+}
 
+const wait99Async = util.promisify(wait99);
 async function testRead(filename) {
-  const temp = await readFileAsync(filename, 'utf8');
-  console.log(temp);
+  let temp2;
+  try {
+    //const temp = await readFileAsync(filename, 'utf8');
+    temp2 = await wait99Async();
+    console.log(temp2);
+  } catch (exception) {
+    console.error(exception);
+  }
 }
 testRead('robot/head.txt');
