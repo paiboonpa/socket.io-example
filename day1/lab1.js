@@ -28,3 +28,10 @@ for (let i=0; i<20; i++) {
         console.log(data);
     });    
 }
+
+fs.readFile('robot/body.txt', 'utf8', function(err, data) {
+    if (err)
+        console.log(err);
+    console.log(data);
+});
+console.log(process.cwd());
