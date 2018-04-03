@@ -19,8 +19,8 @@
       return false;
     });
 
-    socket.on('chatMessageClient', function (msg) {
-        alert(msg);
+    socket.on('chatMessageClient', function (msg,msg2) {
+        alert(msg + msg2);
     });
   });
 </script>

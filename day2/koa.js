@@ -7,7 +7,7 @@ const router = new Router();
 const server = require('http').createServer(app.callback());
 const io = require('socket.io')(server);
 
-router.get('/', async (ctx, next) => {
+router.get('/', async function (ctx, next) {
     ctx.body = await readFile(__dirname + '/public/index.html', 'utf8');
     await next();
 });
