@@ -14,6 +14,7 @@ function serverRoomManage(socket) {
   let roomNo = totalUserNum % 2;
   let roomName = 'room'+roomNo;
   socket.join(roomName);
+
   socket.emit('roomMessage', roomHistory[roomName]);
 
   allUser[socket.id] = roomName;
@@ -39,7 +40,14 @@ io.on('connection', function(socket){
       let roomName = allUser[socket.id];
       roomHistory[roomName] += msg + "<br>";
       console.log(roomHistory);
-      io.to(roomName).emit('roomMessage', roomHistory[roomName]);
+      // send message to everyone in roomName
+      //io.to(roomName).emit('roomMessage', roomHistory[roomName]);
+      
+      // send message to everyone in roomName except itself
+      //socket.broadcast.to(roomName).emit('roomMessage', roomHistory[roomName]);
+      
+      // send message to everyone in every room
+      io.sockets.emit('roomMessage', roomHistory[roomName]);
   });
 });
 
