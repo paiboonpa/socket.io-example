@@ -8,11 +8,12 @@
         </form>
     </body>
 </html>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+  var socket;
   $(function () {
-    var socket = io('http://localhost:3000');
+    socket = io();
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());
       $('#m').val('');
@@ -21,6 +22,10 @@
 
     socket.on('chatMessageClient', function (msg,msg2) {
         alert(msg + msg2);
+    });
+
+    socket.on('roomMessage', function (msg) {
+        console.log(msg);
     });
   });
 </script>
