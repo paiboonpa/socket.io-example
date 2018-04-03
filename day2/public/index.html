@@ -18,5 +18,9 @@
       $('#m').val('');
       return false;
     });
+
+    socket.on('chatMessageClient', function (msg) {
+        alert(msg);
+    });
   });
 </script>
