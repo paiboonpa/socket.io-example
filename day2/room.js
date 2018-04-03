@@ -27,7 +27,10 @@ let allUser = {};
 let room = [];
 room[0] = [];
 room[1] = [];
-let roomHistory = ['',''];
+let roomHistory = {
+  room0: '',
+  room1: ''
+};
 
 io.on('connection', function(socket){
   serverRoomManage(socket);
@@ -35,6 +38,7 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
       let roomName = allUser[socket.id];
       roomHistory[roomName] += msg + "<br>";
+      console.log(roomHistory);
       io.to(roomName).emit('roomMessage', roomHistory[roomName]);
   });
 });
