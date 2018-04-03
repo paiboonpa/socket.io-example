@@ -9,36 +9,44 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
-let allUser = [];
+function serverRoomManage(socket) {
+  let totalUserNum = Object.keys(allUser).length;
+  let roomNo = totalUserNum % 2;
+  let roomName = 'room'+roomNo;
+  socket.join(roomName);
+  socket.emit('roomMessage', roomHistory[roomName]);
+
+  allUser[socket.id] = roomName;
+  room[roomNo].push(socket.id);
+  console.log(socket.id + " joined room" + roomNo);
+  //console.log(room);
+  //console.log("User Online (Concurrent) :", allUser.length);
+}
+
+let allUser = {};
 let room = [];
 room[0] = [];
 room[1] = [];
+let roomHistory = ['',''];
 
 io.on('connection', function(socket){
-  let totalUserNum = allUser.length;
-  let roomNo = totalUserNum % 2;
-  socket.join('room'+roomNo);
-
-  allUser.push(socket.id);
-  room[roomNo].push(socket.id);
-  console.log(socket.id + " joined room" + roomNo);
-  console.log(room);
-  console.log("User Online (Concurrent) :", allUser.length);
+  serverRoomManage(socket);
 
   socket.on('chat message', function(msg){
-      socket.emit('chatMessageClient','Hello','World');
-      //socket.join('some room');
-
-      console.log('message: ' + msg);
+      let roomName = allUser[socket.id];
+      roomHistory[roomName] += msg + "<br>";
+      io.to(roomName).emit('roomMessage', roomHistory[roomName]);
   });
 });
 
+/*
 setInterval(function() {
   io.to('room0').emit('roomMessage', "Hello Room0");
 }, 1000);
 setInterval(function() {
   io.to('room1').emit('roomMessage', "Hello Room1");
 }, 500);
+*/
 
 server.listen(3000, function(){
   console.log('listening on *:3000');
