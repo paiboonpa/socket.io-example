@@ -6,6 +6,7 @@
         <form id='form'>
             Message2: <input type='text' id='m'>
         </form>
+        <div id="chatbox"></div>
     </body>
 </html>
 <script src="/socket.io/socket.io.js"></script>
@@ -25,7 +26,8 @@
     });
 
     socket.on('roomMessage', function (msg) {
-        console.log(msg);
+        //$('#chatbox').append(msg+"<br>");
+        $('#chatbox').html(msg);
     });
   });
 </script>
