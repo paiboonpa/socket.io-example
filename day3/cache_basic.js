@@ -49,5 +49,5 @@ async function main (userId) {
     // use userData for whatever you want
 }
 
-const commandLineParam = process.argv[2];
+const commandLineParam = process.argv[2] || 13;
 main(commandLineParam);
