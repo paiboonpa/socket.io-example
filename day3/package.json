@@ -1,0 +1,24 @@
+{
+  "name": "day3",
+  "version": "1.0.0",
+  "description": "day3",
+  "main": "redis.js",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paiboonpa/socket.io-example.git"
+  },
+  "author": "Paiboon Panusbordee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paiboonpa/socket.io-example/issues"
+  },
+  "homepage": "https://github.com/paiboonpa/socket.io-example#readme"
+}
