@@ -31,7 +31,7 @@ async function main (userId) {
     if ( !(await client.existsAsync('userData:'+userId)) ) {
         let [results, fields] = await pool.query("SELECT * FROM users WHERE id = ?",[userId]);
         if (results.length > 0 && results[0]) {
-            await createUser(results[0]['id'], results[0]['firstname'], 1000);
+            await createUser(results[0]['id'], results[0]['firstname'], results[0]['money']);
             userData = {
                 userId: results[0]['id'],
                 firstname: results[0]['firstname'],
@@ -46,6 +46,7 @@ async function main (userId) {
         console.log("From Redis: ",userData);
     }
     
+    // use userData for whatever you want
 }
 
 const commandLineParam = process.argv[2];
