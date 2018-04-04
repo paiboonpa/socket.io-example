@@ -5,6 +5,7 @@
   "main": "redis.js",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "mysql2": "^1.5.3",
     "redis": "^2.8.0"
   },
   "devDependencies": {},
