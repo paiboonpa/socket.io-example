@@ -16,8 +16,18 @@ async function main () {
         console.log(result);
     });
 
+    function myConsoleLog(msg) {
+        console.log(msg)
+    }
+
+    async function getMyKey() {
+        return await getAsync('mykey');
+    } 
+
     console.log(await getAsync('mykey'));
     console.log(await client.getAsync('mykey'));
+    myConsoleLog("Hello World");
+    myConsoleLog(await getMyKey());
 }
 
 main();
