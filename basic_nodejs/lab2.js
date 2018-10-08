@@ -104,14 +104,14 @@ waitAll2();
 /********** Promise.all own version ********* */
 /*
 function myWait(value, order, length, callback) {
-  setTimeout(function(){
-    console.log(value); // Do something with value
-    callback(order, length, Math.random());
-  }, 1000);
+  setTimeout(function(param){
+    console.log(param);
+    callback(param * 2, order, length);
+  }, 1000, value);
 }
 
 let resultArr = [];
-function onCompleted(order, length, result) {
+function onCompleted(result, order, length) {
   resultArr[order] = "Order: " + order + " : " + result;
   if (resultArr.length == length) {
     console.log(resultArr);
@@ -126,6 +126,7 @@ function promiseAll(arr) {
 
 promiseAll([5,6,7]);
 */
+
 // promisify
 const util = require('util');
 
@@ -140,7 +141,7 @@ const wait99Async = util.promisify(wait99);
 async function testRead(filename) {
   let temp2;
   try {
-    //const temp = await readFileAsync(filename, 'utf8');
+    const temp = await readFileAsync(filename, 'utf8');
     temp2 = await wait99Async();
     console.log(temp2);
   } catch (exception) {
