@@ -25,7 +25,12 @@ async function main (userId) {
         });
     }
     
+    // get connection for transaction database
     const pool = await connectDatabase();
+    // const connection = await pool.getConnection();
+    // const [results, fields] = await connection.query("SELECT * FROM users");
+    // console.log(results[0])
+    // connection.release();
     
     let userData = {};
     if ( !(await client.existsAsync('userData:'+userId)) ) {

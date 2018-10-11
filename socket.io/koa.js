@@ -12,6 +12,16 @@ router.get('/', async function (ctx, next) {
     await next();
 });
 
+router.get('/page1', async function (ctx, next) {
+    ctx.body = 'Hello World1';
+    await next();
+});
+
+router.get('/page2', async function (ctx, next) {
+    ctx.body = 'Hello World2';
+    await next();
+});
+
 app.use(serve('public'));
 app.use(router.routes());
 

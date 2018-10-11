@@ -1,5 +1,5 @@
 let fs = require('fs');
-fs.writeFileSync('demofile1.txt', 'test content', 'utf8');
+/*fs.writeFileSync('demofile1.txt', 'test content', 'utf8');
 fs.writeFile('demofile1.txt', 'test content', 'utf8', function(err) {
   console.log('write complete!!');
 });
@@ -19,7 +19,7 @@ fs.writeFile('demofile2.txt', 'file2 content', 'utf8', function(err) {
       console.log(data);
     });
 });
-
+*/
 for (let i=0; i<20; i++) {
     fs.readFile('demofile1.txt', 'utf8', function(err, data) {
         console.log(data);
@@ -28,10 +28,11 @@ for (let i=0; i<20; i++) {
         console.log(data);
     });    
 }
-
+/*
 fs.readFile('robot/body.txt', 'utf8', function(err, data) {
     if (err)
         console.log(err);
     console.log(data);
 });
 console.log(process.cwd());
+*/
