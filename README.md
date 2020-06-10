@@ -1,2 +1,2 @@
 # socket.io-example
-test
+For training only
