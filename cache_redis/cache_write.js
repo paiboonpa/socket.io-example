@@ -16,14 +16,6 @@ async function main () {
             database : 'codecamp'
         });
     }
-    async function createUser(userId, firstname, money) {
-        return client.hmsetAsync('userData:'+userId,
-        {
-            'userId': userId,
-            'firstname': firstname,
-            'money': money
-        });
-    }
     
     // get connection for transaction database
     const pool = await connectDatabase();
