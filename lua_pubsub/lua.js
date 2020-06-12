@@ -15,6 +15,18 @@ async function main() {
     let result = await client.evalAsync(command, 0);
     console.log(result);
 
+    // unpack example
+    command = `
+local arr = {1,2,3}
+local func = function(param1, param2, param3)
+  return param3
+end
+
+return func( unpack(arr) )
+    `;
+    result = await client.evalAsync(command, 0);
+    console.log("unpack result: " + result);
+
     // load from file eval
     let result2;
     try {
