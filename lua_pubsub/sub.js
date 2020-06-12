@@ -4,6 +4,7 @@ const sub = redis.createClient(),
       store = redis.createClient();
 
 sub.subscribe('myChannel');
+sub.subscribe('myJsonChannel');
 sub.on("subscribe", function (channel, count) {
   console.log(channel, count);
 });
