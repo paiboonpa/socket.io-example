@@ -18,10 +18,9 @@ async function main() {
     }
     try {
         const lua_script = await readFileAsync('lua_script/init_stock.lua', 'utf8');
-        result2 = await client.evalAsync(lua_script, 1, null, JSON.stringify(product));
+        result2 = await client.evalAsync(lua_script, 1, '', JSON.stringify(product));
     } catch (exception) {
         console.error("Lua Script Error: "+exception);
-        result2 = 0;
     }
     console.log(result2);
 }
