@@ -9,6 +9,24 @@ bluebird.promisifyAll(redis.Multi.prototype);
 const readFileAsync = promisify(fs.readFile);
 
 async function main() {
+    // Basic eval
+    let command = "redis.call('set', 'foo', 'bar')\n";
+    command += "return redis.call('get','foo')";
+    let result = await client.evalAsync(command, 0);
+    console.log(result);
+
+    // unpack example
+    command = `
+local arr = {1,2,3}
+local func = function(param1, param2, param3)
+  return param3
+end
+
+return func( unpack(arr) )
+    `;
+    result = await client.evalAsync(command, 0);
+    console.log("unpack result: " + result);
+
     // load from file eval
     let result2;
     const product = {
