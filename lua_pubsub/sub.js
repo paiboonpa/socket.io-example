@@ -1,15 +1,21 @@
 const redis = require("redis");
-const sub = redis.createClient(), 
-      pub = redis.createClient(),
-      store = redis.createClient();
+const client = redis.createClient();
+const sub = client.duplicate(), 
+      pub = client.duplicate();
+const myInstanceName = 'instance1';
+    
+async function main() {
+  await sub.connect().catch(console.error);
+  await pub.connect().catch(console.error);
+  await client.connect().catch(console.error);
 
-sub.connect().catch(console.error);
-pub.connect().catch(console.error);
-store.connect().catch(console.error);
+  sub.subscribe('myChannel', (message, channel) => {
+    //if (myInstanceName == 'instance1')
+        console.log("111", message, channel)
+  });
+  sub.subscribe('myJsonChannel', (message, channel) => {
+    console.log("222", message, channel)
+  });
+}
 
-sub.subscribe('myChannel', (message, channel) => {
-  console.log("111", message, channel)
-});
-sub.subscribe('myJsonChannel', (message, channel) => {
-  console.log("222", message, channel)
-});
+main();
