@@ -11,7 +11,7 @@ async function main() {
     // load from file eval
     let stockLeft;
     try {
-        const lua_script = await readFileAsync('lua_pubsub/lua_script/getset.lua', 'utf8');
+        const lua_script = await readFileAsync('./lua_script/getset.lua', 'utf8');
         stockLeft = await client.eval(lua_script, {
             keys: ['mouse'],
             arguments: []
