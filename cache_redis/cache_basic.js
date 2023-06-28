@@ -14,13 +14,13 @@ async function main (userId) {
         });
     }
     async function createUser(userId, firstname, money) { 
-        const obj = {
-            'userId': userId,
-            'firstname': firstname,
-            'money': money
-        };
-        console.log(obj);
-        return await client.hSet('userData:'+userId, ...Object.entries(obj));
+        const result = await client.multi()
+            .hSet('userData:'+userId, 'userId', userId)
+            .hSet('userData:'+userId, 'firstname', firstname)
+            .hSet('userData:'+userId, 'money', money)
+            .exec();
+        console.log(result);
+        return result;
     }
     
     // get connection for transaction database
