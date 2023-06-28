@@ -3,12 +3,13 @@ const sub = redis.createClient(),
       pub = redis.createClient(),
       store = redis.createClient();
 
-sub.subscribe('myChannel');
-sub.subscribe('myJsonChannel');
-sub.on("subscribe", function (channel, count) {
-  console.log(channel, count);
+sub.connect().catch(console.error);
+pub.connect().catch(console.error);
+store.connect().catch(console.error);
+
+sub.subscribe('myChannel', (message, channel) => {
+  console.log("111", message, channel)
 });
-sub.on("message", (channel, message) => {
-  console.log('Channel : ' + channel);
-  console.log('Message : ' + message);
+sub.subscribe('myJsonChannel', (message, channel) => {
+  console.log("222", message, channel)
 });
