@@ -3,16 +3,15 @@ const bluebird = require("bluebird");
 const client = redis.createClient();
 const fs = require('fs');
 const {promisify} = require('util');
+client.connect().catch(console.error);
 
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
 const readFileAsync = promisify(fs.readFile);
 
 async function main() {
     // Basic eval
     let command = "redis.call('set', 'foo', 'bar')\n";
     command += "return redis.call('get','foo')";
-    let result = await client.evalAsync(command, 0);
+    let result = await client.eval(command, 0);
     console.log(result);
 
     // unpack example
@@ -24,19 +23,22 @@ end
 
 return func( unpack(arr) )
     `;
-    result = await client.evalAsync(command, 0);
+    result = await client.eval(command, 0);
     console.log("unpack result: " + result);
 
     // load from file eval
     let result2;
     const product = {
-        mouse: 2,
+        mouse: 9,
         keyboard: 5,
         adapter: 3
     }
     try {
-        const lua_script = await readFileAsync('lua_script/init_stock.lua', 'utf8');
-        result2 = await client.evalAsync(lua_script, 1, '', JSON.stringify(product));
+        const lua_script = await readFileAsync('./lua_pubsub/lua_script/init_stock.lua', 'utf8');
+        result2 = await client.eval(lua_script, {
+            keys: ['key1'],
+            arguments: [JSON.stringify(product)]
+        });
     } catch (exception) {
         console.error("Lua Script Error: "+exception);
     }
