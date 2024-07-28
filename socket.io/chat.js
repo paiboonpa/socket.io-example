@@ -10,11 +10,16 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+  console.log(socket.id);
     socket.on('chat message', function(msg){
-        socket.emit('chatMessageClient','Hello','World');
-        //socket.join('some room');
+      let dataObj = {
+        sender: 'admin',
+        message: msg
+      };
+      socket.emit('chatMessageClient',dataObj);
+      //socket.join('some room');
 
-        console.log('message: ' + msg);
+      console.log('message: ' + msg);
     });
 });
 

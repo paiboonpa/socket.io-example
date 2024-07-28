@@ -1,5 +1,4 @@
 const redis = require("redis");
-const bluebird = require("bluebird");
 const client = redis.createClient();
 const fs = require('fs');
 const {promisify} = require('util');
@@ -16,7 +15,7 @@ async function main() {
         adapter: 3
     }
     try {
-        const lua_script = await readFileAsync('./lua_script/init_stock.lua', 'utf8');
+        const lua_script = await readFileAsync('./lua_pubsub/lua_script/init_stock.lua', 'utf8');
         result = await client.eval(lua_script, {
             keys: ['key1'],
             arguments: [JSON.stringify(product)]

@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `codecamp`
+-- Database: `swp`
 --
 
 -- --------------------------------------------------------
@@ -26,7 +26,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE DATABASE IF NOT EXISTS swp;
+
+CREATE TABLE swp.`users` (
   `id` int(11) NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
@@ -38,7 +40,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `salary`, `money`) VALUES
+INSERT INTO swp.`users` (`id`, `firstname`, `lastname`, `salary`, `money`) VALUES
 (1, 'tester', 'Skywalker', 10000, 1000),
 (12, 'Luke', 'Skywalker', 0, 1000),
 (13, 'tester', 'bbb', 0, 1000),
@@ -54,7 +56,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `salary`, `money`) VALUES
 --
 -- Indexes for table `users`
 --
-ALTER TABLE `users`
+ALTER TABLE swp.`users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -64,7 +66,7 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `users`
+ALTER TABLE swp.`users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

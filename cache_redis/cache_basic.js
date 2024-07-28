@@ -1,6 +1,8 @@
 const mysql = require("mysql2/promise");
 const redis = require("redis");
-const client = redis.createClient();
+const client = redis.createClient({
+    url: 'redis://localhost:6378'
+  });
 client.connect().catch(console.error);
 
 async function main (userId) {
@@ -8,9 +10,9 @@ async function main (userId) {
         return mysql.createPool({
             connectionLimit : 10,
             host : 'localhost',
-            user : 'root',
-            password : '',
-            database : 'codecamp'
+            user : 'admin',
+            password : '11k3XsnUCQgV',
+            database : 'swp'
         });
     }
     async function createUser(userId, firstname, money) { 
@@ -18,6 +20,7 @@ async function main (userId) {
             .hSet('userData:'+userId, 'userId', userId)
             .hSet('userData:'+userId, 'firstname', firstname)
             .hSet('userData:'+userId, 'money', money)
+            //.expire('userData:'+userId, 100)
             .exec();
         console.log(result);
         return result;

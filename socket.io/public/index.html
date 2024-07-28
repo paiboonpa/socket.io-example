@@ -21,8 +21,10 @@
       return false;
     });
 
-    socket.on('chatMessageClient', function (msg,msg2) {
-        alert(msg + msg2);
+    socket.on('chatMessageClient', function (dataObj) {
+        //alert(msg + msg2);
+        let message = dataObj.sender + ' : ' + dataObj.message;
+        $('#chatbox').append(message+"<br>");
     });
 
     socket.on('roomMessage', function (msg) {

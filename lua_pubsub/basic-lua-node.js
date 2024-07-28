@@ -1,11 +1,7 @@
 const redis = require("redis");
-const bluebird = require("bluebird");
 const client = redis.createClient();
 const fs = require('fs');
-const {promisify} = require('util');
 client.connect().catch(console.error);
-
-const readFileAsync = promisify(fs.readFile);
 
 async function main() {
     // Basic eval
