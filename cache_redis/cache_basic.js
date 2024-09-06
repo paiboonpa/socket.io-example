@@ -1,7 +1,7 @@
 const mysql = require("mysql2/promise");
 const redis = require("redis");
 const client = redis.createClient({
-    url: 'redis://localhost:6378'
+    url: 'redis://localhost:6379'
   });
 client.connect().catch(console.error);
 
@@ -10,8 +10,8 @@ async function main (userId) {
         return mysql.createPool({
             connectionLimit : 10,
             host : 'localhost',
-            user : 'admin',
-            password : '11k3XsnUCQgV',
+            user : 'root',
+            password : '',
             database : 'swp'
         });
     }
