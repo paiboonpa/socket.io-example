@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 /*
 function writeDemo1() {
     return new Promise(function(resolve, reject) {
@@ -128,7 +128,7 @@ promiseAll([5,6,7]);
 */
 
 // promisify
-const util = require('util');
+import util from 'util';
 
 const readFileAsync = util.promisify(fs.readFile);
 function wait99(callback) {

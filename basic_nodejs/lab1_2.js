@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 let robotText = 'init text';
 fs.readFile('robot/head.txt', 'utf8', function(err, headText) {
