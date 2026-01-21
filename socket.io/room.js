@@ -20,11 +20,13 @@ app.get('/', function(req, res){
 app.get('/room0/:message', function(req, res){
   roomHistory['room0'] += '<span style="color: red">' + req.params.message + "</span><br>";
   io.to('room0').emit('roomMessage', roomHistory['room0']);
+  res.send('ok');
 });
 
 app.get('/room1/:message', function(req, res){
   roomHistory['room1'] += '<span style="color: red">' + req.params.message + "</span><br>";
   io.to('room1').emit('roomMessage', roomHistory['room1']);
+  res.send('ok');
 });
 
 function serverRoomManage(socket) {
@@ -60,7 +62,7 @@ function historyRerun(msg) {
 }
 
 io.on('connection', function(socket){
-  //serverRoomManage(socket);
+  serverRoomManage(socket);
   socket.on('chat message', function(msg){
       let roomName = allUser[socket.id];
       roomHistory[roomName] += msg + "<br>";
