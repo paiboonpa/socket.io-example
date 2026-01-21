@@ -1,5 +1,8 @@
-const server = require('http').createServer();
-const io = require('socket.io')(server);
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+const server = createServer();
+const io = new Server(server);
 
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){

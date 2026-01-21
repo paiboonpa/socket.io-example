@@ -1,12 +1,20 @@
-const express = require('express');
+import express from 'express';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/room0/:message', function(req, res){
@@ -44,9 +52,15 @@ let roomHistory = {
   room1: ''
 };
 
-io.on('connection', function(socket){
-  serverRoomManage(socket);
+let history = [];
+function historyRerun(msg) {
+  for (let i=0; i<history.length; i++) {
+    socket.emit('')
+  }
+}
 
+io.on('connection', function(socket){
+  //serverRoomManage(socket);
   socket.on('chat message', function(msg){
       let roomName = allUser[socket.id];
       roomHistory[roomName] += msg + "<br>";
@@ -62,15 +76,15 @@ io.on('connection', function(socket){
   });
 });
 
-/*setInterval(function() {
-  roomHistory['room0'] += "Hello Room0" + "<br>";
-  io.to('room0').emit('roomMessage', roomHistory['room0']);
-}, 3000);
-setInterval(function() {
-  roomHistory['room1'] += "Hello Room1" + "<br>";
-  io.to('room1').emit('roomMessage', roomHistory['room1']);
-}, 1500);
-*/
+// setInterval(function() {
+//   roomHistory['room0'] += "Hello Room0" + "<br>";
+//   io.to('room0').emit('roomMessage', roomHistory['room0']);
+// }, 3000);
+// setInterval(function() {
+//   roomHistory['room1'] += "Hello Room1" + "<br>";
+//   io.to('room1').emit('roomMessage', roomHistory['room1']);
+// }, 1500);
+
 server.listen(3000, function(){
   console.log('listening on *:3000');
 });

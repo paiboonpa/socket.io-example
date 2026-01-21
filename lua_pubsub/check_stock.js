@@ -1,8 +1,9 @@
-const redis = require("redis");
-const bluebird = require("bluebird");
-const client = redis.createClient();
-const fs = require('fs');
-const {promisify} = require('util');
+import { createClient } from 'redis';
+import bluebird from 'bluebird';
+import fs from 'fs';
+import { promisify } from 'util';
+
+const client = createClient();
 client.connect().catch(console.error);
 
 const readFileAsync = promisify(fs.readFile);

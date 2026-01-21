@@ -1,5 +1,6 @@
-const redis = require("redis");
-const client = redis.createClient({
+import { createClient } from 'redis';
+
+const client = createClient({
     url: 'redis://localhost:6379'
   });
 client.connect().catch(console.error);

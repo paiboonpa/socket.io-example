@@ -1,6 +1,7 @@
-const redis = require("redis");
-const mysql = require("mysql2/promise");
-const client = redis.createClient({
+import { createClient } from 'redis';
+import mysql from "mysql2/promise";
+
+const client = createClient({
     url: 'redis://localhost:6379'
   });
 client.connect().catch(console.error);

@@ -1,5 +1,6 @@
-const redis = require("redis");
-const client = redis.createClient();
+import { createClient } from 'redis';
+
+const client = createClient();
 const sub = client.duplicate(), 
       pub = client.duplicate();
 

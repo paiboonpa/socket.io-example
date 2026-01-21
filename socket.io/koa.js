@@ -1,14 +1,23 @@
-const Koa = require('koa');
+import Koa from 'koa';
+import serve from 'koa-static';
+import Router from 'koa-router';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { readFile } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = new Koa();
-const serve = require('koa-static');
-const Router = require('koa-router');
 const router = new Router();
 
-const server = require('http').createServer(app.callback());
-const io = require('socket.io')(server);
+const server = createServer(app.callback());
+const io = new Server(server);
 
 router.get('/', async function (ctx, next) {
-    ctx.body = await readFile(__dirname + '/public/index.html', 'utf8');
+    ctx.body = await readFile(__dirname + '/index.html', 'utf8');
     await next();
 });
 

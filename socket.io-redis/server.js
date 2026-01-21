@@ -1,9 +1,17 @@
-const express = require('express');
+import express from 'express';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+import { createClient } from 'redis';
+import { createAdapter } from '@socket.io/redis-adapter';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-const { createClient } = require('redis');
-const { createAdapter } = require('@socket.io/redis-adapter');
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(express.static('public'));
 

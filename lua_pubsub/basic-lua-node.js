@@ -1,6 +1,7 @@
-const redis = require("redis");
-const client = redis.createClient();
-const fs = require('fs');
+import { createClient } from 'redis';
+import fs from 'fs';
+
+const client = createClient();
 client.connect().catch(console.error);
 
 async function main() {
