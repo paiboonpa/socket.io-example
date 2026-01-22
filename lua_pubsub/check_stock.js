@@ -1,19 +1,15 @@
 import { createClient } from 'redis';
-import bluebird from 'bluebird';
-import fs from 'fs';
-import { promisify } from 'util';
+import fs from 'node:fs/promises';
 
 const client = createClient();
 client.connect().catch(console.error);
-
-const readFileAsync = promisify(fs.readFile);
 
 async function main() {
     // load from file eval
     let stockLeft;
     let amount = '2';
     try {
-        const lua_script = await readFileAsync('./lua_pubsub/lua_script/getset.lua', 'utf8');
+        const lua_script = await fs.readFile('./lua_pubsub/lua_script/getset.lua', 'utf8');
         stockLeft = await client.eval(lua_script, {
             keys: ['mouse'],
             arguments: [amount]

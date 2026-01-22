@@ -1,11 +1,8 @@
 import { createClient } from 'redis';
-import fs from 'fs';
-import { promisify } from 'util';
+import fs from 'node:fs/promises';
 
 const client = createClient();
 client.connect().catch(console.error);
-
-const readFileAsync = promisify(fs.readFile);
 
 async function main() {
     // load from file eval
@@ -16,7 +13,7 @@ async function main() {
         adapter: 3
     }
     try {
-        const lua_script = await readFileAsync('./lua_pubsub/lua_script/init_stock.lua', 'utf8');
+        const lua_script = await fs.readFile('./lua_pubsub/lua_script/init_stock.lua', 'utf8');
         result = await client.eval(lua_script, {
             keys: ['key1'],
             arguments: [JSON.stringify(product)]
